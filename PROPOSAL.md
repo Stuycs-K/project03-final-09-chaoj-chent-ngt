@@ -44,6 +44,7 @@ After Start
 9) The subserver updates its struct player. The subserver then sends its struct player and array index to the main server so that the main server can update the full array. The main server then sends the full array back to the subserver. 
 10) Repeat from step 3 until no more words are left. 
 11) When there are no more words left, the timer is stopped and the time is sent back to the subserver. The subserver updates its struct player. The subserver then sends its struct player and array index to the main server so that the main server can update the full array. 
+
 Each client stores a variable containing how many words they are currently at. 
 Checking how many words are left will be done using strsep()
 
