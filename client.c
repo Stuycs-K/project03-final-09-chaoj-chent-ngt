@@ -1,26 +1,59 @@
 #include "dependencies.h"
 
+// ESCAPE CODE = \033
+
 int err() {
     printf("error %d: %s\n", errno, strerror(errno));
     exit(1);
 }
 
 int main() {
-    char test_string[BUFFER_SIZE] = "Once upon a time, there was a boy.";
+    printf("\033[2J\033[1;1H"); // clear screen
 
-    printf("%s\n", test_string);
+    char test_string[BUFFER_SIZE] = "Hello world!";
 
     char * remaining_string = test_string;
     char * current_word;
-    char user_typed_string[BUFFER_SIZE];
+    char user_typed_word[BUFFER_SIZE];
     while (current_word = strsep(&remaining_string, " ")) {
-        fgets(user_typed_string, BUFFER_SIZE, stdin);
+        if (remaining_string == NULL) {
+            printf("\033[1;31m%s\033[0m\n", current_word);
+        } else {
+            printf("\033[1;31m%s\033[0m %s\n", current_word, remaining_string); // red, bolded text (use 4;31m if bold doesn't work)
+        }
+        printf("Type: %s\n", current_word);
+        printf(">> ");
+        fgets(user_typed_word, BUFFER_SIZE, stdin);
 
-        // ADD CODE TO CHECK IF USER_TYPED_STRING IS EQUAL TO REMOVED WORD
-
-        printf("%s\n", remaining_string);
-        printf("%s", user_typed_string);
+        while (check_word(current_word, user_typed_word) == 0) {
+            printf("\n\nIncorrect. Try again.\n");
+            printf("Type: %s\n", current_word);
+            printf(">> ");
+            fgets(user_typed_word, BUFFER_SIZE, stdin);
+        }
     }
 
+    printf("\n\nYou have completed the typeracer!\n");
+
     return 0;
+}
+
+int check_word(char * word, char * typed_word) {
+    printf("\n"); // for formatting purposes
+
+    // PROBLEM: if typed word is correct, but has extra characters, it will still be correct
+    int correct_status = 1;
+    for (int i = 0; i < strlen(word); i++) {
+        char temp_string[BUFFER_SIZE];
+        if (word[i] == typed_word[i]) {
+            printf("\033[30;48;5;120m%c\033[0m", word[i]); // black text w/ green background
+        } else {
+            printf("\033[30;48;5;209m%c\033[0m", word[i]); // black text w/ red background
+            correct_status = 0;
+        }
+    }
+
+    printf(" "); // for formatting purposes
+
+    return correct_status;
 }
