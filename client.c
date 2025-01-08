@@ -8,9 +8,9 @@ int err() {
 }
 
 int main() {
-    printf("\033[2J\033[1;1H"); // clear screen
+    // printf("\033[2J\033[1;1H"); // clear screen
 
-    char test_string[BUFFER_SIZE] = "Hello world!";
+    char test_string[BUFFER_SIZE] = "Hello world! Said the program.";
 
     char * remaining_string = test_string;
     char * current_word;
@@ -45,21 +45,24 @@ int main() {
 int check_word(char * word, char * typed_word) {
     printf("\n"); // for formatting purposes
 
-    // PROBLEM: if typed word is correct, but has extra characters, it will still be correct
-    
-    int correct_status = 1;
-    // Check each character of the word and prints w/ appropriate background color.
-    for (int i = 0; i < strlen(word); i++) {
-        char temp_string[BUFFER_SIZE];
-        if (word[i] == typed_word[i]) {
-            printf("\033[30;48;5;120m%c\033[0m", word[i]); // black text w/ green background
-        } else {
-            printf("\033[30;48;5;209m%c\033[0m", word[i]); // black text w/ red background
-            correct_status = 0;
+    if (strlen(typed_word)-1 > strlen(word)) {
+        printf("Too long!");
+        return 0;
+    } else {
+        int correct_status = 1;
+        // Check each character of the word and prints w/ appropriate background color.
+        for (int i = 0; i < strlen(word); i++) {
+            char temp_string[BUFFER_SIZE];
+            if (word[i] == typed_word[i]) {
+                printf("\033[30;48;5;120m%c\033[0m", word[i]); // black text w/ green background
+            } else {
+                printf("\033[30;48;5;209m%c\033[0m", word[i]); // black text w/ red background
+                correct_status = 0;
+            }
         }
+
+        printf(" "); // for formatting purposes
+
+        return correct_status;
     }
-
-    printf(" "); // for formatting purposes
-
-    return correct_status;
 }

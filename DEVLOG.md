@@ -16,7 +16,7 @@ Expanded description including how much time was spent on task.
 * Wrote program in client.c that runs TypeRacer in the terminal.
 * Wrote comments for readability.
 * Problem remains where if the user types a word that is correct, but adds additional characters (ex. "was" & "wasa"), the game will still think it's correct.
-* ~ 2 hours spent.
+* ~ 1.5 hours spent.
 
 ### 2024-01-03 - Brief description
 Expanded description including how much time was spent on task.
