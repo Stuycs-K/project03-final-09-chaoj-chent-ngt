@@ -13,4 +13,6 @@
 #define PORT 80
 #define BUFFER_SIZE 256
 
+void client_connect(int * clientSocket);
+
 int err();
