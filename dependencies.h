@@ -14,3 +14,5 @@
 #define BUFFER_SIZE 256
 
 int err();
+
+int check_word(char * word, char * typed_word);

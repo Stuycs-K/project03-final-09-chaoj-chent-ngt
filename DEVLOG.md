@@ -12,8 +12,11 @@ Spent 40 minutes learning sockets and adding code for socket forking server in f
 
 ## Jason Chao
 
-### 2024-01-02 - Brief description
-Expanded description including how much time was spent on task.
+### 2025-01-08 - TypeRacer Game Implementation
+* Wrote program in client.c that runs TypeRacer in the terminal.
+* Wrote comments for readability.
+* Problem remains where if the user types a word that is correct, but adds additional characters (ex. "was" & "wasa"), the game will still think it's correct.
+* ~ 1.5 hours spent.
 
 ### 2024-01-03 - Brief description
 Expanded description including how much time was spent on task.
