@@ -6,9 +6,32 @@ int main() {
     // allocate memory for dynamic array of struct player
 
     int num_ready = 0;
+
+    int sockfd;
+    int clientSocket;
+    struct sockaddr_in serverAddr;
+    struct sockaddr_in con_addr;
+
+    socklen_t addr_size;
+
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+
+    memset(&serverAddr, '\0', sizeof(serverAddr));
+    
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_port = htons(PORT);
+    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+
+    bind(sockfd, (struct sockaddr*)&serverAddr, sizeof(serverAddr));
+
+    listen(sockfd, 4);
+
+
     while (1) {
         // server_setup
+        clientSocket = accept(sockfd, (struct sockaddr*)&cliAddr, &addr_size);
 
+        pid_t p = fork();
         // create subprocess and pipes between subserver and server
 
         // subprocess
