@@ -10,7 +10,7 @@ int err() {
 int main() {
     int clientSocket;
     client_connect(&clientSocket);
-    
+
     printf("\033[2J\033[1;1H"); // clear screen
 
     char test_string[BUFFER_SIZE] = "Hello world! Said the program.";
@@ -54,7 +54,7 @@ void client_connect(int * clientSocket) {
 
    dest_addr -> sin_family = AF_INET;
    dest_addr -> sin_port = htons(PORT);
-   dest_addr -> sin_addr.s_addr = inet_addr("127.0.0.1");
+   dest_addr -> sin_addr.s_addr = inet_addr("149.89.161.126");
 
     connect(*clientSocket, (struct sockaddr*)dest_addr, sizeof(dest_addr[0]));
 }
