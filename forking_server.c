@@ -12,20 +12,9 @@ int main() {
     struct sockaddr_in serverAddr;
     struct sockaddr_in con_addr;
 
+    server_connect(&serverSocket, &sockfd, &serverAddr);
+
     socklen_t addr_size;
-
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-
-    memset(&serverAddr, '\0', sizeof(serverAddr));
-
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(PORT);
-    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-
-    bind(sockfd, (struct sockaddr*)&serverAddr, sizeof(serverAddr));
-
-    listen(sockfd, 4);
-
 
     while (1) {
         // server_setup
@@ -83,4 +72,18 @@ int main() {
 
 
     }
+}
+
+void server_connect(int * serverSocket, int * sockfd, struct sockaddr_in * serverAddr) {
+    *sockfd = socket(AF_INET, SOCK_STREAM, 0);
+
+    memset(serverAddr, '\0', sizeof(*serverAddr));
+
+    serverAddr -> sin_family = AF_INET;
+    serverAddr -> sin_port = htons(PORT);
+    serverAddr -> sin_addr.s_addr = inet_addr("127.0.0.1");
+
+    bind(*sockfd, (struct sockaddr*)serverAddr, sizeof(*serverAddr));
+
+    listen(*sockfd, 4);
 }

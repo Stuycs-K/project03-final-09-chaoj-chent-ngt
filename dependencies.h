@@ -14,5 +14,6 @@
 #define BUFFER_SIZE 256
 
 void client_connect(int * clientSocket);
+void server_connect(int * serverSocket);
 
 int err();
