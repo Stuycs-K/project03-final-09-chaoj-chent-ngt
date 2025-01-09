@@ -14,13 +14,10 @@
 #define PORT 8080
 #define BUFFER_SIZE 256
 
-<<<<<<< HEAD
 void client_connect(int * clientSocket);
 void server_connect(int * sockfd, struct sockaddr_in * serverAddr);
 
 int err();
-=======
-int err();
+
 
 int check_word(char * word, char * typed_word);
->>>>>>> main
