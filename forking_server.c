@@ -21,6 +21,13 @@ int main() {
         clientSocket = accept(sockfd, (struct sockaddr*)&con_addr, &addr_size);
         pid_t p = fork();
 
+        if (p == 0) {
+          char buff[20];
+          recv(clientSocket, buff, 20, 0);
+          printf("%s\n", buff);
+        }
+
+
         // create subprocess and pipes between subserver and server
 
         // subprocess

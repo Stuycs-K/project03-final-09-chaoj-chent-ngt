@@ -13,6 +13,10 @@ int main() {
 
     printf("\033[2J\033[1;1H"); // clear screen
 
+    printf("Username: ");
+    char username[30];
+    send(clientSocket, "cheese", strlen("cheese"), 0);
+    
     char test_string[BUFFER_SIZE] = "Hello world! Said the program.";
 
     char * remaining_string = test_string;
@@ -54,7 +58,7 @@ void client_connect(int * clientSocket) {
 
    dest_addr -> sin_family = AF_INET;
    dest_addr -> sin_port = htons(PORT);
-   dest_addr -> sin_addr.s_addr = inet_addr("149.89.161.126");
+   dest_addr -> sin_addr.s_addr = inet_addr("127.0.0.1");
 
     connect(*clientSocket, (struct sockaddr*)dest_addr, sizeof(dest_addr[0]));
 }
