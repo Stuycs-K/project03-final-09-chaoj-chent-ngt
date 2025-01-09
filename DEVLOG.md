@@ -10,6 +10,9 @@ Added makefile, added proposal, readme, created necessary files, add some approp
 ### 2024-01-07 - Add skeleton code for socket forking server
 Spent 40 minutes learning sockets and adding code for socket forking server in forking_server.c. 
 
+### 2024-01-08 Add and refactor more socketing code
+Spent 60 minutes adding and testing all boilerplate socket code. Encountered errors and fixed them. Refactored code into functions. 
+
 ## Jason Chao
 
 ### 2024-01-02 - Brief description

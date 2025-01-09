@@ -34,9 +34,9 @@ void client_connect(int * clientSocket) {
 
    memset(dest_addr, '\0', sizeof(dest_addr[0]));
 
-   dest_addr.sin_family = AF_INET;
-   dest_addr.sin_port = htons(PORT);
-   dest_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+   dest_addr -> sin_family = AF_INET;
+   dest_addr -> sin_port = htons(PORT);
+   dest_addr -> sin_addr.s_addr = inet_addr("127.0.0.1");
 
-   ret = connect(clientSocket, (struct sockaddr*)dest_addr, sizeof(dest_addr[0]));
+    connect(*clientSocket, (struct sockaddr*)dest_addr, sizeof(dest_addr[0]));
 }

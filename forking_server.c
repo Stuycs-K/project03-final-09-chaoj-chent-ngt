@@ -12,15 +12,15 @@ int main() {
     struct sockaddr_in serverAddr;
     struct sockaddr_in con_addr;
 
-    server_connect(&serverSocket, &sockfd, &serverAddr);
+    server_connect(&sockfd, &serverAddr);
 
     socklen_t addr_size;
 
     while (1) {
         // server_setup
         clientSocket = accept(sockfd, (struct sockaddr*)&con_addr, &addr_size);
-
         pid_t p = fork();
+
         // create subprocess and pipes between subserver and server
 
         // subprocess
@@ -74,7 +74,7 @@ int main() {
     }
 }
 
-void server_connect(int * serverSocket, int * sockfd, struct sockaddr_in * serverAddr) {
+void server_connect(int * sockfd, struct sockaddr_in * serverAddr) {
     *sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
     memset(serverAddr, '\0', sizeof(*serverAddr));

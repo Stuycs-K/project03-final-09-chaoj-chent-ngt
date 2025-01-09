@@ -8,12 +8,13 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <arpa/inet.h>
+#include <errno.h>
 
 
-#define PORT 80
+#define PORT 8080
 #define BUFFER_SIZE 256
 
 void client_connect(int * clientSocket);
-void server_connect(int * serverSocket);
+void server_connect(int * sockfd, struct sockaddr_in * serverAddr);
 
 int err();
