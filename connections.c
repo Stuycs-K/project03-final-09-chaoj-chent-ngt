@@ -51,3 +51,22 @@ int check_word(char * word, char * typed_word) {
         return correct_status;
     }
 }
+
+void username_setup(int * clientSocket) {
+    printf("Username: ");
+    char in[30];
+    char username[30];
+    fgets(in, 29, stdin);
+    sscanf(in, "%[^\n]", username);
+    send(*clientSocket, username, strlen(username), 0);
+}
+
+void ready_up(int * clientSocket) {
+    char ready[30];
+    while (strcmp(ready, "ready\n") != 0) {
+        printf("Type 'ready' to ready up: ");
+        fgets(ready, 29, stdin);
+        printf("\n");
+    }
+    send(*clientSocket, "ready", 5, 0);
+}
