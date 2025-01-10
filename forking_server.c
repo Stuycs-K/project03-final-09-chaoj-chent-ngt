@@ -22,9 +22,8 @@ int main() {
         pid_t p = fork();
 
         if (p == 0) {
-          char buff[20];
-          recv(clientSocket, buff, 20, 0);
-          printf("%s\n", buff);
+          char username[30];
+          recv(clientSocket, username, 30, 0);
         }
 
 

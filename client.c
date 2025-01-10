@@ -14,8 +14,11 @@ int main() {
     printf("\033[2J\033[1;1H"); // clear screen
 
     printf("Username: ");
+    char in[30];
     char username[30];
-    send(clientSocket, "cheese", strlen("cheese"), 0);
+    fgets(in, 29, stdin);
+    sscanf(in, "%[^\n]", username);
+    send(clientSocket, username, strlen(username), 0);
     
     char test_string[BUFFER_SIZE] = "Hello world! Said the program.";
 
