@@ -13,6 +13,9 @@ Spent 40 minutes learning sockets and adding code for socket forking server in f
 ### 2024-01-08 Add and refactor more socketing code
 Spent 60 minutes adding and testing all boilerplate socket code. Encountered errors and fixed them. Refactored code into functions. 
 
+### 2024-01-09 Testing and add username and ready up features
+Spend 90 minutes testing and adding and storing usernames of clients. Asks users if they are ready. 
+
 ## Jason Chao
 
 ### 2025-01-08 - TypeRacer Game Implementation
