@@ -17,14 +17,22 @@ int main() {
     socklen_t addr_size;
 
     while (1) {
-        // server_setup
+        // create subprocess and pipes between subserver and server
         clientSocket = accept(sockfd, (struct sockaddr*)&con_addr, &addr_size);
         pid_t p = fork();
-
-        // create subprocess and pipes between subserver and server
-
         // subprocess
+        if (p == 0) {
+          char username[30];
+          recv(clientSocket, username, 30, 0);
 
+          struct player * pl = (struct player *)malloc(sizeof(struct player));
+
+          strcpy(pl -> username, username);
+          pl -> words = 0;
+
+          char start[30];
+          recv(clientSocket, start, 30, 0);
+        }
             // subprocess does handshake
 
             // read username from client
@@ -74,16 +82,3 @@ int main() {
     }
 }
 
-void server_connect(int * sockfd, struct sockaddr_in * serverAddr) {
-    *sockfd = socket(AF_INET, SOCK_STREAM, 0);
-
-    memset(serverAddr, '\0', sizeof(*serverAddr));
-
-    serverAddr -> sin_family = AF_INET;
-    serverAddr -> sin_port = htons(PORT);
-    serverAddr -> sin_addr.s_addr = inet_addr("127.0.0.1");
-
-    bind(*sockfd, (struct sockaddr*)serverAddr, sizeof(*serverAddr));
-
-    listen(*sockfd, 4);
-}
