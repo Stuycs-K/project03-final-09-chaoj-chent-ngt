@@ -32,7 +32,6 @@ int main() {
 
           char start[30];
           recv(clientSocket, start, 30, 0);
-          printf("%d\n", start);
         }
             // subprocess does handshake
 
