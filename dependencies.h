@@ -27,4 +27,8 @@ int err();
 
 int check_word(char * word, char * typed_word);
 
+void username_setup(int * clientSocket);
+void ready_up(int * clientSocket);
+
+
 #endif
