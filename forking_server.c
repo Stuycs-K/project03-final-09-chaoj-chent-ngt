@@ -29,6 +29,10 @@ int main() {
 
           strcpy(pl -> username, username);
           pl -> words = 0;
+
+          char start[30];
+          recv(clientSocket, start, 30, 0);
+          printf("%d\n", start);
         }
             // subprocess does handshake
 

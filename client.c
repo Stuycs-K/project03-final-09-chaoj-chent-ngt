@@ -19,7 +19,19 @@ int main() {
     fgets(in, 29, stdin);
     sscanf(in, "%[^\n]", username);
     send(clientSocket, username, strlen(username), 0);
-    
+
+
+    printf("\n");
+    char start[30];
+    while (strcmp(start, "start\n") != 0) {
+        printf("Type 'start' to start: ");
+        fgets(start, 29, stdin);
+        printf("\n");
+    }
+    send(clientSocket, "start", 5, 0);
+
+
+
     char test_string[BUFFER_SIZE] = "Hello world! Said the program.";
 
     char * remaining_string = test_string;

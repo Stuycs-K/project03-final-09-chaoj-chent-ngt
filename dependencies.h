@@ -10,7 +10,8 @@
 #include <arpa/inet.h>
 #include <errno.h>
 
-
+#ifndef DEPENDENCIES_H
+#define DEPENDENCIES_H
 #define PORT 8080
 #define BUFFER_SIZE 256
 
@@ -25,3 +26,4 @@ struct player {
     char username[30];
     int words;
 }
+#endif
