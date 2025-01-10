@@ -32,6 +32,8 @@ int main() {
 
           char start[30];
           recv(clientSocket, start, 30, 0);
+          num_ready++;
+          printf("%d\n", num_ready);
         }
             // subprocess does handshake
 
@@ -81,4 +83,3 @@ int main() {
 
     }
 }
-

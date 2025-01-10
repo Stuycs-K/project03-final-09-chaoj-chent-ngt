@@ -68,5 +68,5 @@ void ready_up(int * clientSocket) {
         fgets(ready, 29, stdin);
         printf("\n");
     }
-    send(*clientSocket, "ready", 5, 0);
+    send(*clientSocket, "ready\0", 6, 0);
 }

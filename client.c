@@ -21,7 +21,7 @@ int main() {
     ready_up(&clientSocket);
 
 
-
+    
     char test_string[BUFFER_SIZE] = "Hello world! Said the program.";
 
     char * remaining_string = test_string;
