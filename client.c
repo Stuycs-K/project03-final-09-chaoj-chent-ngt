@@ -16,16 +16,21 @@ int main() {
     username_setup(&clientSocket);
 
 
-    printf("\n");
+    // printf("\n");
 
-    ready_up(&clientSocket);
+    // ready_up(&clientSocket);
 
 
 
-    char test_string[BUFFER_SIZE] = "Hello world! Said the program.";
+    // char test_string[BUFFER_SIZE] = "Hello world! Said the program.";
+    char string_to_type[256];
+    recv(clientSocket, string_to_type, 256, 0);
 
-    char * remaining_string = test_string;
+    printf("String to type: %s\n", string_to_type);
+
+    char * remaining_string = string_to_type;
     char * current_word;
+    int typed_words = 0;
     char user_typed_word[BUFFER_SIZE];
     while (current_word = strsep(&remaining_string, " ")) {
         // Prevents printing (null) when remaining_string is NULL (i.e. last word).
@@ -47,6 +52,11 @@ int main() {
             printf(">> ");
             fgets(user_typed_word, BUFFER_SIZE, stdin);
         }
+
+        typed_words++;
+        char to_server_message[300];
+        sprintf(to_server_message, "Word %d: %s", typed_words, user_typed_word);
+        send(clientSocket, to_server_message, 300, 0);
     }
 
     printf("\n\nYou have completed the typeracer!\n");

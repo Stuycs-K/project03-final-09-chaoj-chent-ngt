@@ -22,7 +22,18 @@ Spend 90 minutes testing and adding and storing usernames of clients. Asks users
 * Wrote program in client.c that runs TypeRacer in the terminal.
 * Wrote comments for readability.
 * Problem remains where if the user types a word that is correct, but adds additional characters (ex. "was" & "wasa"), the game will still think it's correct.
-* ~ 1.5 hours spent.
+* 2 hours spent.
+
+### 2025-01-9 - Fixed Previous Problem
+* Fixed previous problem described above.
+* Created a helper function check_word for cleaner code.
+* 1 hour spent.
+
+### 2024-01-10 - Server-Client Interactions
+* Used the created sockets for server & client connections.
+    * Server sends the string to type to the client.
+    * Every time user types in the correct word, client sends the word typed + the word count.
+* 30 minutes spent.
 
 ### 2024-01-03 - Brief description
 Expanded description including how much time was spent on task.
