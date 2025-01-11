@@ -16,6 +16,9 @@ Spent 60 minutes adding and testing all boilerplate socket code. Encountered err
 ### 2024-01-09 Testing and add username and ready up features
 Spend 90 minutes testing and adding and storing usernames of clients. Asks users if they are ready. 
 
+### 2024-01-10 Add code to increment number of players ready 
+Spent 30 minutes adding and testing code to increment number of players ready. 
+
 ## Jason Chao
 
 ### 2025-01-08 - TypeRacer Game Implementation
