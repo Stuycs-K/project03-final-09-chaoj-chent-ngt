@@ -9,10 +9,13 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <errno.h>
+#include <signal.h>
+#include <sys/types.h>
+#include <netdb.h>
 
 #ifndef DEPENDENCIES_H
 #define DEPENDENCIES_H
-#define PORT 8080
+#define PORT "9876"
 #define BUFFER_SIZE 256
 
 struct player {
@@ -20,8 +23,8 @@ struct player {
     int words;
 };
 
-void client_connect(int * clientSocket);
-void server_connect(int * sockfd, struct sockaddr_in * serverAddr);
+void client_connect(int * sd);
+void server_connect(int * sd);
 
 int err();
 
@@ -32,4 +35,5 @@ void ready_up(int * clientSocket);
 
 void send_string(int * clientSocket);
 
+int len(char * string);
 #endif

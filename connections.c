@@ -1,31 +1,30 @@
 #include "dependencies.h"
 
-void server_connect(int * sockfd, struct sockaddr_in * serverAddr) {
-    *sockfd = socket(AF_INET, SOCK_STREAM, 0);
+void server_connect(int * sd) {
+    struct addrinfo * hints, * results;
+    hints = calloc(1,sizeof(struct addrinfo));
+    hints->ai_family = AF_INET;
+    hints->ai_socktype = SOCK_STREAM; 
+    hints->ai_flags = AI_PASSIVE; 
+    getaddrinfo(NULL, PORT, hints, &results); 
 
-    memset(serverAddr, '\0', sizeof(*serverAddr));
+    *sd = socket(results->ai_family, results->ai_socktype, results->ai_protocol);
 
-    serverAddr -> sin_family = AF_INET;
-    serverAddr -> sin_port = htons(PORT);
-    serverAddr -> sin_addr.s_addr = inet_addr("127.0.0.1");
-
-    bind(*sockfd, (struct sockaddr*)serverAddr, sizeof(*serverAddr));
-
-    listen(*sockfd, 4);
+    bind(*sd, results->ai_addr, results->ai_addrlen);
+    listen(*sd, 4);
 }
 
-void client_connect(int * clientSocket) {
-   struct sockaddr_in * dest_addr = (struct sockaddir_in*)malloc(1*sizeof(struct sockaddr_in));
-   *clientSocket = socket(AF_INET, SOCK_STREAM, 0);
+void client_connect(int * sd) {
+    struct addrinfo * hints, * results;
+    hints = calloc(1,sizeof(struct addrinfo));
+    hints->ai_family = AF_INET;
+    hints->ai_socktype = SOCK_STREAM; 
+    getaddrinfo(NULL, PORT, hints, &results);
+    
+    *sd = socket(results->ai_family, results->ai_socktype, results->ai_protocol);
 
-   memset(dest_addr, '\0', sizeof(dest_addr[0]));
-
-   dest_addr -> sin_family = AF_INET;
-   dest_addr -> sin_port = htons(PORT);
-   dest_addr -> sin_addr.s_addr = inet_addr("127.0.0.1");
-
-    connect(*clientSocket, (struct sockaddr*)dest_addr, sizeof(dest_addr[0]));
-}
+    connect(*sd, results->ai_addr, results->ai_addrlen);
+}   
 
 int check_word(char * word, char * typed_word) {
     printf("\n"); // for formatting purposes
@@ -52,21 +51,33 @@ int check_word(char * word, char * typed_word) {
     }
 }
 
-void username_setup(int * clientSocket) {
+void username_setup(int * sd) {
     printf("Username: ");
     char in[30];
     char username[30];
     fgets(in, 29, stdin);
     sscanf(in, "%[^\n]", username);
-    send(*clientSocket, username, strlen(username), 0);
+    write(*sd, username, strlen(username));
 }
 
-void ready_up(int * clientSocket) {
+void ready_up(int * sd) {
     char ready[30];
     while (strcmp(ready, "ready\n") != 0) {
         printf("Type 'ready' to ready up: ");
         fgets(ready, 29, stdin);
         printf("\n");
     }
-    send(*clientSocket, "ready\0", 6, 0);
+    write(*sd, "ready\0", 6);
+}
+
+int len(char * string) {
+    int n = 0;
+    char cp[30];
+    strcpy(cp, string);
+    char * c = cp;
+    while (c) {
+        strsep(&c, " ");
+        n++;
+    }
+    return n;
 }

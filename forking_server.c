@@ -1,14 +1,17 @@
 #include "dependencies.h"
 
-// void send_string(int * clientSocket, char * string) {
+// void send_string(int * sd, char * string) {
 //     int word_count = 0;
 //     char * remaining_string;
 //     char * current_word;
 //     while (current_word = strsep(&remaining_string, " ")) {
-//         send(clientSocket, current_word, 256, 0);
+//         send(sd, current_word, 256, 0);
 //         word_count++;
 //     }
 // }
+
+
+
 
 int main() {
     // allocate memory for dynamic array of pipes
@@ -16,27 +19,26 @@ int main() {
     // allocate memory for dynamic array of struct player
 
     int num_ready = 0;
+    int num_done = 0;
 
-    int sockfd;
-    int clientSocket;
-    struct sockaddr_in serverAddr;
-    struct sockaddr_in con_addr;
-
-    server_connect(&sockfd, &serverAddr);
-
-    socklen_t addr_size;
+    int sd;
+    server_connect(&sd);
 
     // char string_to_type[BUFFER_SIZE] = "Hello world! Said the program.";
 
     while (1) {
         // create subprocess and pipes between subserver and server
-        clientSocket = accept(sockfd, (struct sockaddr*)&con_addr, &addr_size);
+        socklen_t sock_size;
+        struct sockaddr_storage client_address;
+        sock_size = sizeof(client_address);
+        int client_socket = accept(sd,(struct sockaddr *)&client_address, &sock_size);
+        
         pid_t p = fork();
         // subprocess
         if (p == 0) {
             char username[30];
-            recv(clientSocket, username, 30, 0);
-            // printf("Received username: %s\n", username);
+            read(client_socket, username, 30);
+            printf("Received username: %s\n", username);
 
             struct player * pl = (struct player *)malloc(sizeof(struct player));
 
@@ -44,18 +46,27 @@ int main() {
             pl -> words = 0;
 
             char string_to_type[BUFFER_SIZE] = "Hello world! Said the program.";
+            int length = len(string_to_type);
+            printf("%d\n", length);
+
+
             printf("Sending to client: %s\n", string_to_type);
-            send(clientSocket, string_to_type, strlen(string_to_type) + 1, 0);
+            write(client_socket, string_to_type, strlen(string_to_type) + 1);
 
-            char from_client_message[300];
-            recv(clientSocket, from_client_message, 300, 0);
-            printf("Received from client: %s\n", from_client_message);
+            int words;
+            while (pl -> words < length) {
+                read(client_socket, &words, 4);
+                pl -> words = words;
+            }
+            num_done++; //need to use shm 
+            
 
-            // send_string(&clientSocket, string_to_type);
-          char start[30];
-          recv(clientSocket, start, 30, 0);
-          num_ready++;
-          printf("%d\n", num_ready);
+            // send_string(&sd, string_to_type);
+            char start[30];
+            read(client_socket, start, 30);
+            num_ready++; // need to use shm
+            printf("%d\n", num_ready);
+
         }
             // subprocess does handshake
 

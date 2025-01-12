@@ -19,6 +19,10 @@ Spend 90 minutes testing and adding and storing usernames of clients. Asks users
 ### 2024-01-10 Add code to increment number of players ready 
 Spent 30 minutes adding and testing code to increment number of players ready. 
 
+### 2024-01-11 Rewrote socket code and get server to know when client finishes
+Spent 90 minutes. Rewrote socket code because it used something else other than Mr. K notes. Wrote a function to find length of string and wrote some code to communicate between client and server so that subserver knows when that client finishes their string.
+
+
 ## Jason Chao
 
 ### 2025-01-08 - TypeRacer Game Implementation

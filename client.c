@@ -7,24 +7,26 @@ int err() {
     exit(1);
 }
 
+
+
 int main() {
-    int clientSocket;
-    client_connect(&clientSocket);
+    int sd;
+    client_connect(&sd);
+
 
     printf("\033[2J\033[1;1H"); // clear screen
-
-    username_setup(&clientSocket);
+    username_setup(&sd);
 
 
     // printf("\n");
 
-    // ready_up(&clientSocket);
+    // ready_up(&sd);
 
 
 
     // char test_string[BUFFER_SIZE] = "Hello world! Said the program.";
     char string_to_type[256];
-    recv(clientSocket, string_to_type, 256, 0);
+    read(sd, string_to_type, 256);
 
     printf("String to type: %s\n", string_to_type);
 
@@ -54,9 +56,8 @@ int main() {
         }
 
         typed_words++;
-        char to_server_message[300];
-        sprintf(to_server_message, "Word %d: %s", typed_words, user_typed_word);
-        send(clientSocket, to_server_message, 300, 0);
+        send(sd, &typed_words, 4, 0);
+        printf("sent");
     }
 
     printf("\n\nYou have completed the typeracer!\n");
