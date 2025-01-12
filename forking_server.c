@@ -31,7 +31,7 @@ int main() {
         socklen_t sock_size;
         struct sockaddr_storage client_address;
         sock_size = sizeof(client_address);
-        int client_socket = accept(sd,(struct sockaddr *)&client_address, &sock_size);
+        int client_socket = accept(sd,(struct sockaddr *) &client_address, &sock_size);
         
         pid_t p = fork();
         // subprocess

@@ -20,7 +20,7 @@ int main() {
 
     // printf("\n");
 
-    // ready_up(&sd);
+    ready_up(&sd);
 
 
 
@@ -57,7 +57,7 @@ int main() {
 
         typed_words++;
         send(sd, &typed_words, 4, 0);
-        printf("sent");
+        printf("sent\n");
     }
 
     printf("\n\nYou have completed the typeracer!\n");
