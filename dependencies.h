@@ -17,6 +17,8 @@
 #define DEPENDENCIES_H
 #define PORT "9876"
 #define BUFFER_SIZE 256
+#define READ 0
+#define WRITE 1
 
 struct player {
     char username[30];

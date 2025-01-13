@@ -18,9 +18,9 @@ int main() {
     username_setup(&sd);
 
 
-    // printf("\n");
+    printf("\n");
 
-    // ready_up(&sd);
+    ready_up(&sd);
 
 
 

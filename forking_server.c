@@ -15,6 +15,10 @@
 
 int main() {
     // allocate memory for dynamic array of pipes
+    // int fds[4][2];
+    // for (int i = 0; i < 4; i++) {
+    //   pipe(fds[i]);
+    // }
     int subservers = 0;
     // allocate memory for dynamic array of struct player
 
@@ -32,10 +36,12 @@ int main() {
         struct sockaddr_storage client_address;
         sock_size = sizeof(client_address);
         int client_socket = accept(sd,(struct sockaddr *)&client_address, &sock_size);
-        
+
         pid_t p = fork();
         // subprocess
         if (p == 0) {
+            // int ind = subservers; //shm
+            // close(fdsp[ind][WRITE]);
             char username[30];
             read(client_socket, username, 30);
             printf("Received username: %s\n", username);
@@ -45,9 +51,15 @@ int main() {
             strcpy(pl -> username, username);
             pl -> words = 0;
 
+            // // send_string(&sd, string_to_type);
+            // char start[30];
+            // read(client_socket, start, 30);
+            // num_ready++; // need to use shm
+            //
+            // int i;
+            // read(fds[ind][READ], &i, 4);
             char string_to_type[BUFFER_SIZE] = "Hello world! Said the program.";
             int length = len(string_to_type);
-            printf("%d\n", length);
 
 
             printf("Sending to client: %s\n", string_to_type);
@@ -58,16 +70,18 @@ int main() {
                 read(client_socket, &words, 4);
                 pl -> words = words;
             }
-            num_done++; //need to use shm 
-            
-
-            // send_string(&sd, string_to_type);
-            char start[30];
-            read(client_socket, start, 30);
-            num_ready++; // need to use shm
-            printf("%d\n", num_ready);
-
+            num_done++; //need to use shm
         }
+        // if (p > 0) {
+        //   for (int i = 0; i < 4; i++) {
+        //     close(fds[i][READ]);
+        //   }
+        //   while (num_ready != subservers);
+        //   for (int i = 0; i < subservers; i++) {
+        //     write(fds[i][WRITE], 1, 4);
+        //   }
+        // }
+
             // subprocess does handshake
 
             // read username from client
