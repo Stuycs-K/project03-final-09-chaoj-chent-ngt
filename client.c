@@ -1,4 +1,5 @@
 #include "dependencies.h"
+// #include <linux/time.h>
 
 // ESCAPE CODE = \033
 
@@ -13,20 +14,25 @@ int main() {
     int sd;
     client_connect(&sd);
 
-
     printf("\033[2J\033[1;1H"); // clear screen
     username_setup(&sd);
 
+<<<<<<< HEAD
 
     printf("\n");
+=======
+    // printf("\n");
+>>>>>>> 46519f99c4d78864db6df6b86634cf7f3d371028
 
     ready_up(&sd);
 
 
 
-    // char test_string[BUFFER_SIZE] = "Hello world! Said the program.";
     char string_to_type[256];
     read(sd, string_to_type, 256);
+
+    struct timespec start, end;
+    clock_gettime(CLOCK_REALTIME, &start);
 
     printf("String to type: %s\n", string_to_type);
 
@@ -61,8 +67,9 @@ int main() {
         printf("sent\n");
     }
 
-    // USE GETTIMEOFDAY() TO CALCULATE WPM
-    printf("\n\n%d\n", typed_words);
+    clock_gettime(CLOCK_REALTIME, &end);
+    double time = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+    printf("Time taken: %f\n", time);
     printf("You have completed the typeracer!\n");
 
     return 0;
