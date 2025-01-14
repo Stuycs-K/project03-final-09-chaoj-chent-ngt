@@ -51,8 +51,9 @@ Expanded description including how much time was spent on task.
 
 ## Tim Ng
 
-### 2024-01-02 - Brief description
-Expanded description including how much time was spent on task.
+### 2024-01-14 - Sorry I didn't have working code until now TvT (SHM)
+* Used shm to make num_done and num_ready work
+* 30 minutes spent.
 
 ### 2024-01-03 - Brief description
 Expanded description including how much time was spent on task.
