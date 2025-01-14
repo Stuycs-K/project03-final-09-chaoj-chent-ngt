@@ -59,5 +59,6 @@ Expanded description including how much time was spent on task.
 * Used shm to make num_done and num_ready work
 * 30 minutes spent.
 
-### 2024-01-03 - Brief description
-Expanded description including how much time was spent on task.
+### 2024-01-14 - Started working on adding custom prompts. 
+* prompts.txt added 
+* started working on code to look through the file to use a prompt
