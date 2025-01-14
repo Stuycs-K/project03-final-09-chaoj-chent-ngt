@@ -10,30 +10,36 @@
 //     }
 // }
 
+int shmid;
+int * shm;
 
+static void sighandler(int signo) {
+  if (SIGINT) {
+    shmdt(shm);
+    shmctl(shmid, IPC_RMID, NULL);
+    exit(1);
+  }
+}
 
 
 int main() {
     // allocate memory for dynamic array of pipes
-    // int fds[4][2];
-    // for (int i = 0; i < 4; i++) {
-    //   pipe(fds[i]);
-    // }
-    int subservers = 0;
-    // allocate memory for dynamic array of struct player
-    int shmid = shmget(intkey, 2 * sizeof(int), 0666 | IPC_CREAT);
-    if (shmid < 0) {
-        perror("shmget fail");
-        exit(1);
+    int fds[4][2];
+    for (int i = 0; i < 4; i++) {
+      pipe(fds[i]);
     }
-
+    // allocate memory for dynamic array of struct player
+    int shmid = shmget(intkey, 3 * sizeof(int), 0666 | IPC_CREAT);
     int * shm = (int *)shmat(shmid, NULL, 0);
+
 
     int *num_ready = &shm[0];
     int * num_done = &shm[1];
+    int * subservers = &shm[2];
 
     *num_ready = 0;
     *num_done = 0;
+    *subservers = 0;
 
     int sd;
     server_connect(&sd);
@@ -50,8 +56,9 @@ int main() {
         pid_t p = fork();
         // subprocess
         if (p == 0) {
-            // int ind = subservers; //shm
-            // close(fdsp[ind][WRITE]);
+            int ind = *subservers; //shm
+            (*subservers)++;
+            // close(fds[ind][WRITE]);
             char username[30];
             read(client_socket, username, 30);
             printf("Received username: %s\n", username);
@@ -61,12 +68,13 @@ int main() {
             strcpy(pl -> username, username);
             pl -> words = 0;
 
-            // // send_string(&sd, string_to_type);
-            // char start[30];
-            // read(client_socket, start, 30);
-            // num_ready++; // need to use shm
-            //
-            // int i;
+            // send_string(&sd, string_to_type);
+            char start[30];
+            read(client_socket, start, 30);
+            (*num_ready)++; // need to use shm
+            printf("%d\n", *num_ready);
+            int i;
+            while (*num_ready != *subservers);
             // read(fds[ind][READ], &i, 4);
             char string_to_type[BUFFER_SIZE] = "Hello world! Said the program.";
             int length = len(string_to_type);
@@ -80,34 +88,14 @@ int main() {
                 read(client_socket, &words, 4);
                 pl -> words = words;
             }
-            num_done++; //need to use shm
-            // int j;
-            // read(fds[ind][READ], &j, 4);
-            // send_results();
             (*num_done)++; //need to use shm
-            printf("num_done: %d\n", num_done);
+            int j;
+            printf("num_done: %d\n", *num_done);
 
 
             // send_string(&sd, string_to_type);
-            char start[30];
-            read(client_socket, start, 30);
-            (*num_ready)++; // need to use shm
-            printf("%d\n", num_ready);
 
         }
-        // if (p > 0) {
-        //   for (int i = 0; i < 4; i++) {
-        //     close(fds[i][READ]);
-        //   }
-        //   while (num_ready != subservers);
-        //   for (int i = 0; i < subservers; i++) {
-        //     write(fds[i][WRITE], 1, 4);
-        //   }
-        //   while (num_done != subservers);
-        //   for (int i = 0; i < subservers; i++) {
-        //     write(fds[i][WRITE], 1, 4);
-        //   }
-        // }
 
             // subprocess does handshake
 
