@@ -19,8 +19,10 @@
 
 #ifndef DEPENDENCIES_H
 #define DEPENDENCIES_H
-#define PORT "9876"
+#define PORT "9877"
 #define BUFFER_SIZE 256
+#define READ 0
+#define WRITE 1
 #define intkey 239248239
 
 struct player {
