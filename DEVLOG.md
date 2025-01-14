@@ -48,6 +48,7 @@ Spent 90 minutes. Rewrote socket code because it used something else other than 
 
 ### 2024-01-14 - Implemented Time Component
 * Used clock_gettime() to find time elapsed from start of typeracer to end.
+* Added formatting to game, clearing screen after a correct word input.
 * 40 minutes spent.
 
 ### 2024-01-03 - Brief description

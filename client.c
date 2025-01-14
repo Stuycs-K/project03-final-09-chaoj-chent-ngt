@@ -1,5 +1,4 @@
 #include "dependencies.h"
-// #include <linux/time.h>
 
 // ESCAPE CODE = \033
 
@@ -57,9 +56,15 @@ int main() {
             fgets(user_typed_word, BUFFER_SIZE, stdin);
         }
 
+        printf("\033[2J\033[1;1H");
+        for (int i = 0; i < strlen(current_word); i++) {
+            printf("\033[30;48;5;120m%c\033[0m", current_word[i]);
+        }
+        printf("\n"); // for formatting purposes
+
         typed_words++;
         send(sd, &typed_words, 4, 0);
-        printf("sent\n");
+        // printf("sent\n");
     }
 
     clock_gettime(CLOCK_REALTIME, &end);
