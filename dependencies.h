@@ -13,6 +13,7 @@
 #include <sys/types.h>
 #include <netdb.h>
 #include <time.h>
+#include <sys/time.h>
 
 #ifndef DEPENDENCIES_H
 #define DEPENDENCIES_H

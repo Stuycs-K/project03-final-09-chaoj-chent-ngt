@@ -46,6 +46,10 @@ Spent 90 minutes. Rewrote socket code because it used something else other than 
 * Fixed some formatting errors in the terminal.
 * 5 minutes spent.
 
+### 2024-01-14 - Implemented Time Component
+* Used clock_gettime() to find time elapsed from start of typeracer to end.
+* 40 minutes spent.
+
 ### 2024-01-03 - Brief description
 Expanded description including how much time was spent on task.
 
