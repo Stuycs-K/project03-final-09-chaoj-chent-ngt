@@ -71,12 +71,19 @@ int main() {
                 pl -> words = words;
             }
             num_done++; //need to use shm
+            // int j;
+            // read(fds[ind][READ], &j, 4);
+            // send_results();
         }
         // if (p > 0) {
         //   for (int i = 0; i < 4; i++) {
         //     close(fds[i][READ]);
         //   }
         //   while (num_ready != subservers);
+        //   for (int i = 0; i < subservers; i++) {
+        //     write(fds[i][WRITE], 1, 4);
+        //   }
+        //   while (num_done != subservers);
         //   for (int i = 0; i < subservers; i++) {
         //     write(fds[i][WRITE], 1, 4);
         //   }
