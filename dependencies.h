@@ -13,11 +13,14 @@
 #include <sys/types.h>
 #include <netdb.h>
 #include <time.h>
+#include <sys/shm.h>
+#include <sys/ipc.h>
 
 #ifndef DEPENDENCIES_H
 #define DEPENDENCIES_H
 #define PORT "9876"
 #define BUFFER_SIZE 256
+#define intkey 239248239
 
 struct player {
     char username[30];

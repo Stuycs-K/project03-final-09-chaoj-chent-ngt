@@ -17,9 +17,19 @@ int main() {
     // allocate memory for dynamic array of pipes
     int subservers = 0;
     // allocate memory for dynamic array of struct player
+    int shmid = shmget(intkey, 2 * sizeof(int), 0666 | IPC_CREAT);
+    if (shmid < 0) {
+        perror("shmget fail");
+        exit(1);
+    }
 
-    int num_ready = 0;
-    int num_done = 0;
+    int * shm = (int *)shmat(shmid, NULL, 0); 
+
+    int *num_ready = &shm[0];
+    int * num_done = &shm[1]; 
+
+    *num_ready = 0;
+    *num_done = 0;
 
     int sd;
     server_connect(&sd);
@@ -58,13 +68,14 @@ int main() {
                 read(client_socket, &words, 4);
                 pl -> words = words;
             }
-            num_done++; //need to use shm 
+            (*num_done)++; //need to use shm 
+            printf("num_done: %d\n", num_done);
             
 
             // send_string(&sd, string_to_type);
             char start[30];
             read(client_socket, start, 30);
-            num_ready++; // need to use shm
+            (*num_ready)++; // need to use shm
             printf("%d\n", num_ready);
 
         }
@@ -115,4 +126,6 @@ int main() {
 
 
     }
+    shmdt(shm);
+    shmctl(shmid, IPC_RMID, NULL);
 }
