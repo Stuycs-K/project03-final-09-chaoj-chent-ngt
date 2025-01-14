@@ -12,6 +12,9 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <netdb.h>
+#include <time.h>
+#include <sys/shm.h>
+#include <sys/ipc.h>
 
 #ifndef DEPENDENCIES_H
 #define DEPENDENCIES_H
@@ -19,6 +22,7 @@
 #define BUFFER_SIZE 256
 #define READ 0
 #define WRITE 1
+#define intkey 239248239
 
 struct player {
     char username[30];

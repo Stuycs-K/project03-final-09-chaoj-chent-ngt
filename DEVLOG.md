@@ -44,6 +44,10 @@ Spent 50 minutes. Created pipes between processes/subprocesses. Using these pipe
     * Every time user types in the correct word, client sends the word typed + the word count.
 * 30 minutes spent.
 
+### 2024-01-12 - Formatting Tweaks
+* Fixed some formatting errors in the terminal.
+* 5 minutes spent.
+
 ### 2024-01-03 - Brief description
 Expanded description including how much time was spent on task.
 

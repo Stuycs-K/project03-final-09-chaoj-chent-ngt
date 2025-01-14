@@ -34,6 +34,7 @@ int main() {
     char * current_word;
     int typed_words = 0;
     char user_typed_word[BUFFER_SIZE];
+
     while (current_word = strsep(&remaining_string, " ")) {
         // Prevents printing (null) when remaining_string is NULL (i.e. last word).
         if (remaining_string == NULL) {
@@ -57,10 +58,12 @@ int main() {
 
         typed_words++;
         send(sd, &typed_words, 4, 0);
-        printf("sent");
+        printf("sent\n");
     }
 
-    printf("\n\nYou have completed the typeracer!\n");
+    // USE GETTIMEOFDAY() TO CALCULATE WPM
+    printf("\n\n%d\n", typed_words);
+    printf("You have completed the typeracer!\n");
 
     return 0;
 }
