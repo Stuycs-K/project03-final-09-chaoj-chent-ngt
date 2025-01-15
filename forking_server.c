@@ -68,8 +68,8 @@ int main() {
         if (p == 0) {
             int ind = *subservers; //shm
             (*subservers)++;
-            printf("%d\n", *subservers);
-            // close(fds[ind][WRITE]);
+
+            close(fds[ind][READ]);
             char username[30];
             read(client_socket, username, 30);
             printf("Received username: %s\n", username);
@@ -100,15 +100,17 @@ int main() {
                 pl -> words = words;
             }
             (*num_done)++; //need to use shm
-            int j;
-            printf("num_done: %d\n", *num_done);
-
-
-            // send_string(&sd, string_to_type);
+            
+            int j = 1;
+            if (*num_done == *subservers) {
+              write(fds[ind][WRITE], &j, 4);
+            }
 
         }
         if (p > 0) {
-          printf("%d\n", *subservers);
+          // use select here
+          for (int i = 0; i < *subser)
+          printf("s: %d\n", *subservers);
         }
 
 
