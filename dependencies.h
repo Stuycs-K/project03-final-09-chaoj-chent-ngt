@@ -18,7 +18,7 @@
 
 #ifndef DEPENDENCIES_H
 #define DEPENDENCIES_H
-#define PORT "9877"
+#define PORT "9883"
 #define BUFFER_SIZE 256
 #define READ 0
 #define WRITE 1

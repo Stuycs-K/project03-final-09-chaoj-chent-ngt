@@ -55,9 +55,20 @@ int main() {
 
         pid_t p = fork();
         // subprocess
+        // if (p > 0) {
+        //   while (1) {
+        //     printf("%d\n", *subservers);
+        //     sleep(1);
+        //     // if (*num_done == *subservers & *subservers != 0) {
+        //     //   printf("FINISH");
+        //     //   break;
+        //     // }
+        //   }
+        // }
         if (p == 0) {
             int ind = *subservers; //shm
             (*subservers)++;
+            printf("%d\n", *subservers);
             // close(fds[ind][WRITE]);
             char username[30];
             read(client_socket, username, 30);
@@ -96,6 +107,10 @@ int main() {
             // send_string(&sd, string_to_type);
 
         }
+        if (p > 0) {
+          printf("%d\n", *subservers);
+        }
+
 
             // subprocess does handshake
 
