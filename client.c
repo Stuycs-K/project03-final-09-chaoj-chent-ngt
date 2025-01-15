@@ -1,13 +1,9 @@
 #include "dependencies.h"
 
-// ESCAPE CODE = \033
-
 int err() {
     printf("error %d: %s\n", errno, strerror(errno));
     exit(1);
 }
-
-
 
 int main() {
     int sd;
@@ -16,24 +12,27 @@ int main() {
     printf("\033[2J\033[1;1H"); // clear screen
     username_setup(&sd);
 
-<<<<<<< HEAD
-
     printf("\n");
-=======
-    // printf("\n");
->>>>>>> 46519f99c4d78864db6df6b86634cf7f3d371028
-
     ready_up(&sd);
 
-
-
     char string_to_type[256];
-    read(sd, string_to_type, 256);
+    int read_string_status = read(sd, string_to_type, 256);
+    if (read_string_status == -1) {
+        err();
+    }
+
+    // Countdown
+    sleep(1);
+    for (int i = 5; i >= 1; i--) {
+        printf("\033[2J\033[1;1H");
+        printf("String to type: %s\n", string_to_type);
+        printf("Starting in %d...\n", i);
+        sleep(1);
+    }
+    printf("\033[2J\033[1;1H");
 
     struct timespec start, end;
     clock_gettime(CLOCK_REALTIME, &start);
-
-    printf("String to type: %s\n", string_to_type);
 
     char * remaining_string = string_to_type;
     char * current_word;
