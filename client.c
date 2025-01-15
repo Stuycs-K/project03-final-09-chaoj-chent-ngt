@@ -16,12 +16,10 @@ int main() {
     printf("\033[2J\033[1;1H"); // clear screen
     username_setup(&sd);
 
-<<<<<<< HEAD
 
     printf("\n");
-=======
+
     // printf("\n");
->>>>>>> 46519f99c4d78864db6df6b86634cf7f3d371028
 
     ready_up(&sd);
 
