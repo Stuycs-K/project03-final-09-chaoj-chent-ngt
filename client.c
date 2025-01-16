@@ -64,6 +64,9 @@ int main() {
     // USE GETTIMEOFDAY() TO CALCULATE WPM
     printf("\n\n%d\n", typed_words);
     printf("You have completed the typeracer!\n");
-
+    
+    char finish[20];
+    read(sd, finish, 20);
+    printf("%s\n", finish);
     return 0;
 }
