@@ -28,7 +28,7 @@
 struct player {
     char username[30];
     int words;
-    int time;
+    double time;
 };
 
 void client_connect(int * sd);

@@ -94,7 +94,8 @@ int main() {
 
             double user_time;
             read(client_socket, &user_time, sizeof(double));
-            printf("Client \033[38;5;47m%s\033[0m time: %f\n", username, user_time);
+            pl -> time = user_time;
+            printf("Client \033[38;5;47m%s\033[0m time: %f\n", username, pl -> time);
         }
 
             // subprocess does handshake
