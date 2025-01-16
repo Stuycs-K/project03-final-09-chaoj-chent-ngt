@@ -25,6 +25,12 @@ Spent 90 minutes. Rewrote socket code because it used something else other than 
 ### 2024-01-13 Create piping between processes
 Spent 50 minutes. Created pipes between processes/subprocesses. Using these pipes to signal and block to subprocesses when to do certain things (when string is sent and when final results are sent). 
 
+### 2024-01-14 Properly check when all users are ready 
+Spent 40 minutes. Added code using read/write/sockets so that the game will not start for everyone unless everyone is ready. 
+
+### 2024-01-15 Properly check when all users are finished 
+Spent 60 minutes. Added code so that clients know when all other clients are finished using sockets and shared memory. 
+
 ## Jason Chao
 
 ### 2025-01-08 - TypeRacer Game Implementation

@@ -23,17 +23,19 @@ static void sighandler(int signo) {
 
 
 int main() {
-    int shmid = shmget(intkey, 3 * sizeof(int), 0666 | IPC_CREAT);
+    int shmid = shmget(intkey, 4 * sizeof(int), 0666 | IPC_CREAT);
     int * shm = (int *)shmat(shmid, NULL, 0);
 
 
     int *num_ready = &shm[0];
     int * num_done = &shm[1];
     int * subservers = &shm[2];
+    struct player ** pls = &shm[3];
 
     *num_ready = 0;
     *num_done = 0;
     *subservers = 0;
+    *pls = (struct player *)malloc(4 * sizeof(struct player));
 
     int sd;
     server_connect(&sd);
@@ -55,10 +57,8 @@ int main() {
             read(client_socket, username, 30);
             printf("Received username: %s\n", username);
 
-            struct player * pl = (struct player *)malloc(sizeof(struct player));
-
-            strcpy(pl -> username, username);
-            pl -> words = 0;
+            strcpy(*pls[ind] -> username, username);
+            *pls[ind] -> words = 0;
 
             char start[30];
             read(client_socket, start, 30);
@@ -74,9 +74,9 @@ int main() {
             write(client_socket, string_to_type, strlen(string_to_type) + 1);
 
             int words;
-            while (pl -> words < length) {
+            while (*pls[ind] -> words < length) {
                 read(client_socket, &words, 4);
-                pl -> words = words;
+                *pls[ind] -> words = words;
             }
             (*num_done)++; 
             
