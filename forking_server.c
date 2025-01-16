@@ -39,7 +39,6 @@ int main() {
     int sd;
     server_connect(&sd);
 
-
     while (1) {
         socklen_t sock_size;
         struct sockaddr_storage client_address;
@@ -56,11 +55,9 @@ int main() {
             read(client_socket, username, 30);
             printf("Received username: %s\n", username);
 
-
-            printf("%s\n", (*pls + ind) -> username);
             strcpy((*pls + ind) -> username, username);
 
-            (*pls)[ind].words = 0;
+            (*pls + ind) -> words = 0;
 
             char start[30];
             read(client_socket, start, 30);
@@ -76,16 +73,16 @@ int main() {
             write(client_socket, string_to_type, strlen(string_to_type) + 1);
 
             int words;
-            while ((*pls)[ind].words < length) {
+            while ((*pls + ind) -> words < length) {
                 read(client_socket, &words, 4);
-                (*pls)[ind].words = words;
+                (*pls + ind) -> words = words;
             }
             (*num_done)++;
 
             char finish[20] = "finish";
             while (*num_done != *subservers);
             write(client_socket, finish, 20);
-            printf("us: %s, wrd: %d\n", (*pls)[ind].username, (*pls)[ind].words);
+            printf("us: %s, wrd: %d\n", (*pls + ind) -> username, (*pls + ind) -> words);
 
         }
     }
