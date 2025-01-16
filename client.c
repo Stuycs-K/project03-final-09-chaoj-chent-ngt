@@ -14,9 +14,6 @@ int main() {
 
 
     printf("\n");
-=======
-    // printf("\n");
->>>>>>> 46519f99c4d78864db6df6b86634cf7f3d371028
 
     ready_up(&sd);
 
@@ -36,13 +33,13 @@ int main() {
     }
     printf("\033[2J\033[1;1H");
 
-    struct timespec start, end;
-    clock_gettime(CLOCK_REALTIME, &start);
-
     char * remaining_string = string_to_type;
     char * current_word;
     int typed_words = 0;
     char user_typed_word[BUFFER_SIZE];
+
+    struct timespec start, end;
+    clock_gettime(CLOCK_REALTIME, &start);
 
     while (current_word = strsep(&remaining_string, " ")) {
         // Prevents printing (null) when remaining_string is NULL (i.e. last word).
@@ -84,6 +81,7 @@ int main() {
         printf("Failed to send user's time to server.");
         err();
     }
+    
     printf("You have completed the typeracer!\n");
 
     return 0;

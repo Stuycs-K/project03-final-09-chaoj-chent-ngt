@@ -61,7 +61,7 @@ int main() {
             // close(fds[ind][WRITE]);
             char username[30];
             read(client_socket, username, 30);
-            printf("Received username: %s\n", username);
+            printf("Received username: \033[38;5;47m%s\033[0m\n", username);
 
             struct player * pl = (struct player *)malloc(sizeof(struct player));
 
@@ -80,7 +80,7 @@ int main() {
             int length = len(string_to_type);
 
 
-            printf("Sending to client: %s\n", string_to_type);
+            printf("Sending to client \033[38;5;47m%s\033[0m: %s\n", username, string_to_type);
             write(client_socket, string_to_type, strlen(string_to_type) + 1);
 
             int words;
@@ -94,7 +94,7 @@ int main() {
 
             double user_time;
             read(client_socket, &user_time, sizeof(double));
-            printf("Client's time: %f\n", user_time);
+            printf("Client \033[38;5;47m%s\033[0m time: %f\n", username, user_time);
         }
 
             // subprocess does handshake
