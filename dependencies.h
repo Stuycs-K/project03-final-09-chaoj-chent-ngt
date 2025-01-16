@@ -41,4 +41,7 @@ void ready_up(int * clientSocket);
 void send_string(int * clientSocket);
 
 int len(char * string);
+
+int randint(int num);
+
 #endif

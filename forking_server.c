@@ -10,8 +10,19 @@
 //     }
 // }
 
+int randint(int num) { // num is amount of prompts in the txt file
+	srand(time(NULL) + getpid());
+	return rand() % num + 1;
+}
 
+void promptReader() {
+  FILE * ptr = fopen("prompts.txt", "r");
+  if (ptr < 0) {
+    perror("file open error");
+    exit(1);
+  }
 
+}
 
 int main() {
     // allocate memory for dynamic array of pipes
@@ -23,10 +34,10 @@ int main() {
         exit(1);
     }
 
-    int * shm = (int *)shmat(shmid, NULL, 0); 
+    int * shm = (int *)shmat(shmid, NULL, 0);
 
     int *num_ready = &shm[0];
-    int * num_done = &shm[1]; 
+    int * num_done = &shm[1];
 
     *num_ready = 0;
     *num_done = 0;
@@ -42,7 +53,7 @@ int main() {
         struct sockaddr_storage client_address;
         sock_size = sizeof(client_address);
         int client_socket = accept(sd,(struct sockaddr *) &client_address, &sock_size);
-        
+
         pid_t p = fork();
         // subprocess
         if (p == 0) {
@@ -68,9 +79,9 @@ int main() {
                 read(client_socket, &words, 4);
                 pl -> words = words;
             }
-            (*num_done)++; //need to use shm 
+            (*num_done)++; //need to use shm
             printf("num_done: %d\n", num_done);
-            
+
 
             // send_string(&sd, string_to_type);
             char start[30];
