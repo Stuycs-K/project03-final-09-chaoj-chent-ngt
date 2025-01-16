@@ -92,9 +92,9 @@ int main() {
             int j;
             printf("num_done: %d\n", *num_done);
 
-
-            // send_string(&sd, string_to_type);
-
+            double user_time;
+            read(client_socket, &user_time, sizeof(double));
+            printf("Client's time: %f\n", user_time);
         }
 
             // subprocess does handshake
