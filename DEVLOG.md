@@ -22,6 +22,8 @@ Spent 30 minutes adding and testing code to increment number of players ready.
 ### 2024-01-11 Rewrote socket code and get server to know when client finishes
 Spent 90 minutes. Rewrote socket code because it used something else other than Mr. K notes. Wrote a function to find length of string and wrote some code to communicate between client and server so that subserver knows when that client finishes their string.
 
+### 2024-01-13 Create piping between processes
+Spent 50 minutes. Created pipes between processes/subprocesses. Using these pipes to signal and block to subprocesses when to do certain things (when string is sent and when final results are sent). 
 
 ## Jason Chao
 
@@ -48,7 +50,12 @@ Spent 90 minutes. Rewrote socket code because it used something else other than 
 
 ### 2024-01-14 - Implemented Time Component
 * Used clock_gettime() to find time elapsed from start of typeracer to end.
+* Added formatting to game, clearing screen after a correct word input.
 * 40 minutes spent.
+
+### 2024-01-15 - Game Features
+* Added a countdown for better UI.
+* 20 minutes spent.
 
 ### 2024-01-03 - Brief description
 Expanded description including how much time was spent on task.
