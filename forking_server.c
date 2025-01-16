@@ -23,14 +23,14 @@ static void sighandler(int signo) {
 
 
 int main() {
-    int shmid = shmget(intkey, 4 * sizeof(int), 0666 | IPC_CREAT);
+    int shmid = shmget(intkey, 3 * sizeof(int) + sizeof(struct player *), 0666 | IPC_CREAT);
     int * shm = (int *)shmat(shmid, NULL, 0);
 
 
     int *num_ready = &shm[0];
     int * num_done = &shm[1];
     int * subservers = &shm[2];
-    struct player ** pls = &shm[3];
+    struct player ** pls = (struct player **)&shm[3];
 
     *num_ready = 0;
     *num_done = 0;
@@ -50,21 +50,22 @@ int main() {
         pid_t p = fork();
 
         if (p == 0) {
-            int ind = *subservers; 
+            int ind = *subservers;
             (*subservers)++;
 
             char username[30];
             read(client_socket, username, 30);
             printf("Received username: %s\n", username);
 
-            strcpy(*pls[ind] -> username, username);
-            *pls[ind] -> words = 0;
+            strcpy((*pls) -> username, username);
+            printf("%s\n", (*pls) -> username);
+            (*pls)[ind].words = 0;
 
             char start[30];
             read(client_socket, start, 30);
             (*num_ready)++;
             printf("%d\n", *num_ready);
-  
+
             while (*num_ready != *subservers);
             char string_to_type[BUFFER_SIZE] = "Hello world! Said the program.";
             int length = len(string_to_type);
@@ -74,15 +75,16 @@ int main() {
             write(client_socket, string_to_type, strlen(string_to_type) + 1);
 
             int words;
-            while (*pls[ind] -> words < length) {
+            while ((*pls)[ind].words < length) {
                 read(client_socket, &words, 4);
-                *pls[ind] -> words = words;
+                (*pls)[ind].words = words;
             }
-            (*num_done)++; 
-            
+            (*num_done)++;
+
             char finish[20] = "finish";
             while (*num_done != *subservers);
             write(client_socket, finish, 20);
+            printf("us: %s, wrd: %d\n", (*pls)[ind].username, (*pls)[ind].words);
 
         }
     }
