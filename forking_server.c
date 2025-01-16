@@ -31,7 +31,6 @@ int main() {
     int * num_done = &shm[1];
     int * subservers = &shm[2];
     struct player ** pls = (struct player **)&shm[3];
-
     *num_ready = 0;
     *num_done = 0;
     *subservers = 0;
@@ -57,8 +56,10 @@ int main() {
             read(client_socket, username, 30);
             printf("Received username: %s\n", username);
 
-            strcpy((*pls) -> username, username);
-            printf("%s\n", (*pls) -> username);
+
+            printf("%s\n", (*pls + ind) -> username);
+            strcpy((*pls + ind) -> username, username);
+
             (*pls)[ind].words = 0;
 
             char start[30];
