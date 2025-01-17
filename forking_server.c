@@ -15,12 +15,32 @@ int randint(int num) { // num is amount of prompts in the txt file
 	return rand() % num + 1;
 }
 
+<<<<<<< Updated upstream
 void promptReader() {
   FILE * ptr = fopen("prompts.txt", "r");
+=======
+char ** promptReader(char * file, int promptCount) {
+  FILE * ptr = fopen(file, "r");
+>>>>>>> Stashed changes
   if (ptr < 0) {
     perror("file open error");
     exit(1);
   }
+<<<<<<< Updated upstream
+=======
+
+  fseek(ptr, 0, SEEK_END);
+	long size = ftell(ptr);
+	rewind(file);
+
+	for (int i = 0; i < size; i++) {
+		char * sep = strsep(&ptr, "/*");
+	}
+
+	return ptr;
+}
+
+>>>>>>> Stashed changes
 int shmid;
 int * shm;
 
@@ -88,7 +108,7 @@ int main() {
             int i;
             while (*num_ready != *subservers);
             // read(fds[ind][READ], &i, 4);
-            char string_to_type[BUFFER_SIZE] = "Hello world! Said the program.";
+            char string_to_type[BUFFER_SIZE] = promptReader();
             int length = len(string_to_type);
 
 
