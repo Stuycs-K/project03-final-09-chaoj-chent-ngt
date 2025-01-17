@@ -87,5 +87,5 @@ int calcwpm(int words, int time) {
 }
 
 char * sortlb(struct player * pls, int ind, int size) {
-
+//
 }
