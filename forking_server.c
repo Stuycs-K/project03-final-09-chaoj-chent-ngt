@@ -1,15 +1,5 @@
 #include "dependencies.h"
 
-// void send_string(int * sd, char * string) {
-//     int word_count = 0;
-//     char * remaining_string;
-//     char * current_word;
-//     while (current_word = strsep(&remaining_string, " ")) {
-//         send(sd, current_word, 256, 0);
-//         word_count++;
-//     }
-// }
-
 int shmid;
 int * shm;
 
@@ -20,7 +10,6 @@ static void sighandler(int signo) {
     exit(1);
   }
 }
-
 
 int main() {
     int shmid = shmget(intkey, 3 * sizeof(int) + sizeof(struct player *), 0666 | IPC_CREAT);
@@ -68,8 +57,7 @@ int main() {
             char string_to_type[BUFFER_SIZE] = "Hello world! Said the program.";
             int length = len(string_to_type);
 
-
-            printf("Sending to client \033[38;5;47m%s\033[0m: %s\n", username, string_to_type);
+            printf("Sent to client \033[38;5;47m%s\n", username);
             write(client_socket, string_to_type, strlen(string_to_type) + 1);
 
             int words;
@@ -78,71 +66,14 @@ int main() {
                 read(client_socket, &words, 4);
                 read(client_socket, &user_time, sizeof(double));
                 (*pls + ind) -> words = words;
+                (*pls + ind) -> time = user_time;
+                (*pls + ind) -> wpm = calcwpm(words, user_time);
             }
-            (*num_done)++; //need to use shm
-            int j;
-            printf("num_done: %d\n", *num_done);
-
-            read(client_socket, &user_time, sizeof(double));
-            pl -> time = user_time;
-            // printf("Client \033[38;5;47m%s\033[0m time: %f\n", username, pl -> time);
-        }
-
-            // subprocess does handshake
-
-            // read username from client
-
-            // create struct player and populate
-
-            // send struct player to main process
-
-            // copy over int subserver as array_index (shm)
-
-            // increment subserver (shm)
-
-
-        // main process
-
-            // read struct player and reallocate array of struct players
-
-        // subprocess
-
-            // listen from client for ready
-
-            // increment num_ready (shm)
-
-        // main process
-
-            // stall until num_ready == subservers
-
-            // send a string to all servers
-
-        // subprocess
-
-            // block until read the above string
-
-            // send string to client
-
-            // access total array of leaderboard using shm and send to client
-
-        // while (condition) {
-          // after start loop
-        // }
-
-        // subprocess
-
-          // send leaderboard to clients
-
-
-            (*num_done)++;
+            (*num_done)++; 
 
             char finish[20] = "finish";
             while (*num_done != *subservers);
             write(client_socket, finish, 20);
-            printf("us: %s, wrd: %d\n", (*pls + ind) -> username, (*pls + ind) -> words);
-
         }
     }
-    shmdt(shm);
-    shmctl(shmid, IPC_RMID, NULL);
 }

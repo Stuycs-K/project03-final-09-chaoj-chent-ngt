@@ -29,6 +29,7 @@ struct player {
     char username[30];
     int words;
     double time;
+    double wpm;
 };
 
 void client_connect(int * sd);
@@ -44,4 +45,5 @@ void ready_up(int * clientSocket);
 void send_string(int * clientSocket);
 
 int len(char * string);
+int calcwpm(int words, int time);
 #endif

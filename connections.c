@@ -81,3 +81,7 @@ int len(char * string) {
     }
     return n;
 }
+
+int calcwpm(int words, int time) {
+    return 60. / time * words; 
+}
