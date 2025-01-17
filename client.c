@@ -5,9 +5,9 @@ int err() {
     exit(1);
 }
 
-int main() {
+int main(int argc, char * argv[]) {
     int sd;
-    client_connect(&sd);
+    client_connect(&sd, "149.89.161.126");
 
     printf("\033[2J\033[1;1H"); // clear screen
     username_setup(&sd);
@@ -76,9 +76,9 @@ int main() {
         write(sd, &time, sizeof(double));
     }
 
-    
+
     printf("You have completed the typeracer!\n");
-    
+
     char finish[20];
     read(sd, finish, 20);
     printf("%s\n", finish);
