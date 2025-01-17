@@ -15,19 +15,18 @@ int randint(int num) { // num is amount of prompts in the txt file
 	return rand() % num + 1;
 }
 
-<<<<<<< Updated upstream
+
 void promptReader() {
   FILE * ptr = fopen("prompts.txt", "r");
-=======
+
 char ** promptReader(char * file, int promptCount) {
   FILE * ptr = fopen(file, "r");
->>>>>>> Stashed changes
+
   if (ptr < 0) {
     perror("file open error");
     exit(1);
   }
-<<<<<<< Updated upstream
-=======
+
 
   fseek(ptr, 0, SEEK_END);
 	long size = ftell(ptr);
