@@ -4,9 +4,9 @@ void server_connect(int * sd) {
     struct addrinfo * hints, * results;
     hints = calloc(1,sizeof(struct addrinfo));
     hints->ai_family = AF_INET;
-    hints->ai_socktype = SOCK_STREAM; 
-    hints->ai_flags = AI_PASSIVE; 
-    getaddrinfo(NULL, PORT, hints, &results); 
+    hints->ai_socktype = SOCK_STREAM;
+    hints->ai_flags = AI_PASSIVE;
+    getaddrinfo(NULL, PORT, hints, &results);
 
     *sd = socket(results->ai_family, results->ai_socktype, results->ai_protocol);
 
@@ -14,17 +14,17 @@ void server_connect(int * sd) {
     listen(*sd, 4);
 }
 
-void client_connect(int * sd) {
+void client_connect(int * sd, char * ip) {
     struct addrinfo * hints, * results;
     hints = calloc(1,sizeof(struct addrinfo));
     hints->ai_family = AF_INET;
-    hints->ai_socktype = SOCK_STREAM; 
-    getaddrinfo(NULL, PORT, hints, &results);
-    
+    hints->ai_socktype = SOCK_STREAM;
+    getaddrinfo(ip, PORT, hints, &results);
+
     *sd = socket(results->ai_family, results->ai_socktype, results->ai_protocol);
 
     connect(*sd, results->ai_addr, results->ai_addrlen);
-}   
+}
 
 int check_word(char * word, char * typed_word) {
     printf("\n"); // for formatting purposes
@@ -83,5 +83,9 @@ int len(char * string) {
 }
 
 int calcwpm(int words, int time) {
-    return 60. / time * words; 
+    return 60. / time * words;
+}
+
+char * sortlb(struct player * pls, int ind, int size) {
+
 }

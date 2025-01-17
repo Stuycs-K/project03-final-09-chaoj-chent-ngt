@@ -69,7 +69,7 @@ int main() {
                 (*pls + ind) -> time = user_time;
                 (*pls + ind) -> wpm = calcwpm(words, user_time);
             }
-            (*num_done)++; 
+            (*num_done)++;
 
             char finish[20] = "finish";
             while (*num_done != *subservers);
