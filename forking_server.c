@@ -15,10 +15,6 @@ int randint(int num) { // num is amount of prompts in the txt file
 	return rand() % num + 1;
 }
 
-
-void promptReader() {
-  FILE * ptr = fopen("prompts.txt", "r");
-
 char ** promptReader(char * file, int promptCount) {
   FILE * ptr = fopen(file, "r");
 
@@ -32,14 +28,12 @@ char ** promptReader(char * file, int promptCount) {
 	long size = ftell(ptr);
 	rewind(file);
 
-	for (int i = 0; i < size; i++) {
-		char * sep = strsep(&ptr, "/*");
-	}
+	char * content = (char*) malloc(size + 1);
+	fread(content, size, ptr);
 
 	return ptr;
 }
 
->>>>>>> Stashed changes
 int shmid;
 int * shm;
 
