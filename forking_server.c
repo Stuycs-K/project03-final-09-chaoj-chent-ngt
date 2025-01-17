@@ -53,7 +53,7 @@ int main() {
 
             char username[30];
             read(client_socket, username, 30);
-            printf("Received username: %s\n", username);
+            printf("Received username: \033[38;5;47m%s\033[0m\n", username);
 
             strcpy((*pls + ind) -> username, username);
 
@@ -69,14 +69,71 @@ int main() {
             int length = len(string_to_type);
 
 
-            printf("Sending to client: %s\n", string_to_type);
+            printf("Sending to client \033[38;5;47m%s\033[0m: %s\n", username, string_to_type);
             write(client_socket, string_to_type, strlen(string_to_type) + 1);
 
             int words;
+            double user_time;
             while ((*pls + ind) -> words < length) {
                 read(client_socket, &words, 4);
+                read(client_socket, &user_time, sizeof(double));
                 (*pls + ind) -> words = words;
             }
+            (*num_done)++; //need to use shm
+            int j;
+            printf("num_done: %d\n", *num_done);
+
+            read(client_socket, &user_time, sizeof(double));
+            pl -> time = user_time;
+            // printf("Client \033[38;5;47m%s\033[0m time: %f\n", username, pl -> time);
+        }
+
+            // subprocess does handshake
+
+            // read username from client
+
+            // create struct player and populate
+
+            // send struct player to main process
+
+            // copy over int subserver as array_index (shm)
+
+            // increment subserver (shm)
+
+
+        // main process
+
+            // read struct player and reallocate array of struct players
+
+        // subprocess
+
+            // listen from client for ready
+
+            // increment num_ready (shm)
+
+        // main process
+
+            // stall until num_ready == subservers
+
+            // send a string to all servers
+
+        // subprocess
+
+            // block until read the above string
+
+            // send string to client
+
+            // access total array of leaderboard using shm and send to client
+
+        // while (condition) {
+          // after start loop
+        // }
+
+        // subprocess
+
+          // send leaderboard to clients
+
+
             (*num_done)++;
 
             char finish[20] = "finish";

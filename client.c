@@ -1,18 +1,13 @@
 #include "dependencies.h"
 
-// ESCAPE CODE = \033
-
 int err() {
     printf("error %d: %s\n", errno, strerror(errno));
     exit(1);
 }
 
-
-
 int main() {
     int sd;
     client_connect(&sd);
-
 
     printf("\033[2J\033[1;1H"); // clear screen
     username_setup(&sd);
@@ -22,18 +17,29 @@ int main() {
 
     ready_up(&sd);
 
-
-
-    // char test_string[BUFFER_SIZE] = "Hello world! Said the program.";
     char string_to_type[256];
-    read(sd, string_to_type, 256);
+    int read_string_status = read(sd, string_to_type, 256);
+    if (read_string_status == -1) {
+        err();
+    }
 
-    printf("String to type: %s\n", string_to_type);
+    // Countdown
+    sleep(1);
+    for (int i = 5; i >= 1; i--) {
+        printf("\033[2J\033[1;1H");
+        printf("String to type: %s\n", string_to_type);
+        printf("Starting in %d...\n", i);
+        sleep(1);
+    }
+    printf("\033[2J\033[1;1H");
 
     char * remaining_string = string_to_type;
     char * current_word;
     int typed_words = 0;
     char user_typed_word[BUFFER_SIZE];
+
+    struct timespec start, end;
+    clock_gettime(CLOCK_REALTIME, &start);
 
     while (current_word = strsep(&remaining_string, " ")) {
         // Prevents printing (null) when remaining_string is NULL (i.e. last word).
@@ -56,13 +62,26 @@ int main() {
             fgets(user_typed_word, BUFFER_SIZE, stdin);
         }
 
+        printf("\033[2J\033[1;1H");
+        for (int i = 0; i < strlen(current_word); i++) {
+            printf("\033[30;48;5;120m%c\033[0m", current_word[i]);
+        }
+        printf("\n"); // for formatting purposes
+
         typed_words++;
         send(sd, &typed_words, 4, 0);
-        printf("sent\n");
+        // printf("sent\n");
     }
 
-    // USE GETTIMEOFDAY() TO CALCULATE WPM
-    printf("\n\n%d\n", typed_words);
+    clock_gettime(CLOCK_REALTIME, &end);
+    double time = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+    printf("Time taken: %f\n", time);
+    int send_time_status = send(sd, &time, sizeof(double), 0);
+    if (send_time_status == -1) {
+        printf("Failed to send user's time to server.");
+        err();
+    }
+    
     printf("You have completed the typeracer!\n");
     
     char finish[20];

@@ -54,13 +54,23 @@ Spent 60 minutes. Added code so that clients know when all other clients are fin
 * Fixed some formatting errors in the terminal.
 * 5 minutes spent.
 
+### 2024-01-14 - Implemented Time Component
+* Used clock_gettime() to find time elapsed from start of typeracer to end.
+* Added formatting to game, clearing screen after a correct word input.
+* 40 minutes spent.
+
+### 2024-01-15 - Game Features
+* Added a countdown for better UI.
+* 20 minutes spent.
+
 ### 2024-01-03 - Brief description
 Expanded description including how much time was spent on task.
 
 ## Tim Ng
 
-### 2024-01-02 - Brief description
-Expanded description including how much time was spent on task.
+### 2024-01-14 - Sorry I didn't have working code until now TvT (SHM)
+* Used shm to make num_done and num_ready work
+* 30 minutes spent.
 
 ### 2024-01-03 - Brief description
 Expanded description including how much time was spent on task.

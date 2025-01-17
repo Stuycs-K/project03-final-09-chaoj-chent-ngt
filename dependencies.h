@@ -15,6 +15,7 @@
 #include <time.h>
 #include <sys/shm.h>
 #include <sys/ipc.h>
+#include <sys/time.h>
 
 #ifndef DEPENDENCIES_H
 #define DEPENDENCIES_H
@@ -27,6 +28,7 @@
 struct player {
     char username[30];
     int words;
+    double time;
 };
 
 void client_connect(int * sd);
