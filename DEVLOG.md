@@ -57,6 +57,10 @@ Spent 50 minutes. Created pipes between processes/subprocesses. Using these pipe
 * Added a countdown for better UI.
 * 20 minutes spent.
 
+### 2024-01-17 - Game Features
+* Underlined the word to type to make it easier to see. Colored client name in server prints.
+* 20 minutes.
+
 ### 2024-01-03 - Brief description
 Expanded description including how much time was spent on task.
 

@@ -50,7 +50,7 @@ int main() {
         }
 
         // Initial prompt for user, without testing.
-        printf("Type: %s\n", current_word);
+        printf("Type: \033[4m%s\033[24m\n", current_word);
         printf(">> ");
         fgets(user_typed_word, BUFFER_SIZE, stdin);
 
