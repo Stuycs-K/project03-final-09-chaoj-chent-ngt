@@ -69,20 +69,18 @@ int main() {
         printf("\n"); // for formatting purposes
 
         typed_words++;
-        send(sd, &typed_words, 4, 0);
-        // printf("sent\n");
+
+        clock_gettime(CLOCK_REALTIME, &end);
+        double time = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+        write(sd, &typed_words, 4);
+        write(sd, &time, sizeof(double));
     }
 
-    clock_gettime(CLOCK_REALTIME, &end);
-    double time = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
-    printf("Time taken: %f\n", time);
-    int send_time_status = send(sd, &time, sizeof(double), 0);
-    if (send_time_status == -1) {
-        printf("Failed to send user's time to server.");
-        err();
-    }
     
     printf("You have completed the typeracer!\n");
-
+    
+    char finish[20];
+    read(sd, finish, 20);
+    printf("%s\n", finish);
     return 0;
 }
