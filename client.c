@@ -7,7 +7,7 @@ int err() {
 
 int main(int argc, char * argv[]) {
     int sd;
-    client_connect(&sd, "149.89.161.126");
+    client_connect(&sd, NULL);
 
     printf("\033[2J\033[1;1H"); // clear screen
     username_setup(&sd);
