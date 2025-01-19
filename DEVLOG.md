@@ -31,6 +31,9 @@ Spent 40 minutes. Added code using read/write/sockets so that the game will not 
 ### 2024-01-15 Properly check when all users are finished 
 Spent 60 minutes. Added code so that clients know when all other clients are finished using sockets and shared memory. 
 
+### 2024-01-16 Worked on a leaderboard system 
+Spent 60 minutes. Added code and debugged and tested updating the shared memory for an array of struct players. This array is updated every time a word is entered. 
+
 ## Jason Chao
 
 ### 2025-01-08 - TypeRacer Game Implementation
@@ -62,6 +65,10 @@ Spent 60 minutes. Added code so that clients know when all other clients are fin
 ### 2024-01-15 - Game Features
 * Added a countdown for better UI.
 * 20 minutes spent.
+
+### 2024-01-17 - Game Features
+* Underlined the word to type to make it easier to see. Colored client name in server prints.
+* 20 minutes.
 
 ### 2024-01-03 - Brief description
 Expanded description including how much time was spent on task.

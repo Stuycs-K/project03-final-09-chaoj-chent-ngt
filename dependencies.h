@@ -32,7 +32,7 @@ struct player {
     double wpm;
 };
 
-void client_connect(int * sd);
+void client_connect(int * sd, char * ip);
 void server_connect(int * sd);
 
 int err();

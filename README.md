@@ -23,3 +23,6 @@ Once the string appears on each clients game, each client has to type the next u
 Once they get through the entire string, the client blocks input. 
 Once all clients finish, the server sends a final leaderboard which is displayed to each client. 
 The clients gracefully exit. 
+
+### Project ID:
+09-chaoj-chent-ngt[4]
