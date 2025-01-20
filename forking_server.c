@@ -15,7 +15,6 @@ int main() {
     int shmid = shmget(intkey, 3 * sizeof(int) + sizeof(struct player *), 0666 | IPC_CREAT);
     int * shm = (int *)shmat(shmid, NULL, 0);
 
-
     int *num_ready = &shm[0];
     int * num_done = &shm[1];
     int * subservers = &shm[2];
@@ -51,7 +50,6 @@ int main() {
             char start[30];
             read(client_socket, start, 30);
             (*num_ready)++;
-            printf("%d\n", *num_ready);
 
             while (*num_ready != *subservers);
             char string_to_type[BUFFER_SIZE] = "Hello world! Said the program.";
@@ -69,11 +67,13 @@ int main() {
                 (*pls + ind) -> time = user_time;
                 (*pls + ind) -> wpm = calcwpm(words, user_time);
             }
+
+            char stats[100];
+            sprintf(stats, "You finished in %dst/th place! You had a pace of %d wpm!", *num_done + 1, calcwpm(words, user_time));
             (*num_done)++;
 
-            char finish[20] = "finish";
-            while (*num_done != *subservers);
-            write(client_socket, finish, 20);
+            while (*num_done < *subservers);
+            write(client_socket, stats, 100);
         }
     }
 }

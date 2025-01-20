@@ -79,8 +79,8 @@ int main(int argc, char * argv[]) {
 
     printf("You have completed the typeracer!\n");
 
-    char finish[20];
-    read(sd, finish, 20);
+    char finish[100];
+    read(sd, finish, 100);
     printf("%s\n", finish);
     return 0;
 }

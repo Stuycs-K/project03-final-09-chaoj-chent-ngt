@@ -46,5 +46,5 @@ void send_string(int * clientSocket);
 
 int len(char * string);
 int calcwpm(int words, int time);
-char * sortlb(struct player * pls, int ind, int size);
+// char * sortlb(struct player * pls, int ind, int size);
 #endif
