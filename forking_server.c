@@ -55,7 +55,7 @@ int main() {
             char string_to_type[BUFFER_SIZE] = "Hello world! Said the program.";
             int length = len(string_to_type);
 
-            printf("Sent to client \033[38;5;47m%s\n", username);
+            printf("Sent to client \033[38;5;47m%s\033[0m\n", username);
             write(client_socket, string_to_type, strlen(string_to_type) + 1);
 
             int words;
