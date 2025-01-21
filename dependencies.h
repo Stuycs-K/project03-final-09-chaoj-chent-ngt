@@ -17,6 +17,7 @@
 #include <sys/ipc.h>
 #include <sys/time.h>
 #include <sys/mman.h>
+#include <sys/sem.h>
 
 #ifndef DEPENDENCIES_H
 #define DEPENDENCIES_H

@@ -3,6 +3,13 @@
 int shmid;
 int * shm;
 
+union semun {
+  int val;                  //used for SETVAL
+  struct semid_ds *buf;     //used for IPC_STAT and IPC_SET
+  unsigned short  *array;   //used for SETALL
+  struct seminfo  *__buf;
+};
+
 static void sighandler(int signo) {
   if (SIGINT) {
     shmdt(shm);
@@ -35,6 +42,11 @@ int main() {
       o.wpm = 0;
       pls[i] = o;
     }
+
+    int semd = semget(intkey, 1, IPC_CREAT | IPC_EXCL | 0644);
+    union semun d;
+    d.val = 1;
+    semctl(semd, 0, SETVAL, d);
 
 
 
@@ -76,6 +88,12 @@ int main() {
             double user_time;
 
             while ((pls + ind) -> words < length) {  
+                int semd = semget(intkey, 1, 0);
+                struct sembuf sb;
+                sb.sem_num = 0;
+                sb.sem_flg = SEM_UNDO;
+                sb.sem_op = -1;
+
                 char * lb = sortlb(pls, *subservers);
                 write(client_socket, lb, 400);
                 read(client_socket, &words, 4);
@@ -83,6 +101,9 @@ int main() {
                 (pls + ind) -> words = words;
                 (pls + ind) -> time = user_time;
                 (pls + ind) -> wpm = calcwpm(words, user_time);
+
+                sb.sem_op = 1;
+                semop(semd, &sb, 1);
             }
 
             char stats[100];
