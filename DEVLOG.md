@@ -40,6 +40,12 @@ Spent 40 minutes. Fixed bunch of errors because I was incorrectly refering to pl
 ### 2024-01-18 wrote sortlb function
 Spent 40 minutes. Wrote a sortlb function which uses pls to create a user-readable string to show progress of each player.
 
+### 2024-01-19 edited sortlb function and tried figuring a way to put structs in shm
+Spent 80 minutes. Really just struggled and experimented doing a bunch of different things on stack overflow. Sortlb function had a few errors like wrong types. Didn't accomplish anything really. 
+
+### 2024-01-20 used mmap to create shared memory segments of structs and allowed updating and displaying leaderboard upon entering the correct word
+Spent 90 minutes. Searched stack overflow for ways to implement shm for structs. I resorted to using mmap() and then I had the subserver and server communicate to get the leaderboard string between each other. 
+
 ## Jason Chao
 
 ### 2025-01-08 - TypeRacer Game Implementation
