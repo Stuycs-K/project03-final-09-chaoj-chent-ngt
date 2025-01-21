@@ -10,7 +10,7 @@ We will be creating a multiplayer typing race game similar to TypeRacer and Nitr
     
 # Intended usage:
 
-One machine will host a server that the clients/players will connect to. When the clients are started, they will be prompted for a username. Whenever all the clients have connected, any one of the clients can enter ‘start’ into the terminal. This will prompt the server to send each of the clients the identical string. That string will appear on the terminal osf every client along with a “leaderboard” indicating the percentage of completion of each player. A client is meant to type in one word at a time and pres enter. Pressing enter will update the leaderboard percentages as well as the displayed string. If the client types the word correctly that word in the string will be colored green. If the word is typed incorrectly, the string will not be colored and the user will have to type the same word. Once the client finishes all the words, it sends the amount of time the client took to finish and stops asking for user input. Once all the clients finish, each client displays the wpm and rankings of each client. Then, each client gracefully exits. The server should remain open. 
+One machine will host a server that the clients/players will connect to. When the clients are started, they will be prompted for a username. Whenever all the clients have connected, any one of the clients can enter ‘ready’ into the terminal. This will prompt the server to send each of the clients the identical string. That string will appear on the terminal of every client along with a “leaderboard” indicating the words per minute and time elapsed for each player. A client is meant to type in one word at a time and press enter. Pressing enter will update the leaderboard words per minute, time elapsed, and the displayed string. If the client types the word correctly, that word in the string will be colored green. If the word is typed incorrectly, there are a few possible errors that may show up. If let's say one letter is wrong, the whole word will be highlighted green except for that letter, in which it will be red. If no letter is typed where there should be one, it will also show up as highlighted red. Lastly, if you type a word that is too long, the client will tell you the word is too long and prompt you to type the word again. Once the client finishes all the words, it sends the amount of time the client took to finish and stops asking for user input. Once all the clients finish, each client displays the wpm and rankings of each client. Then, each client gracefully exits. The server should remain open. 
 
   
 # Technical Details:
@@ -24,8 +24,8 @@ Each subserver will store a struct player that contains the username, number of 
 
 Upon Start
 
-1) When enough clients have connected, any client can enter ‘start’. Sends ‘start’ to the respective subserver through a socket.
-2) Subserver sends ‘start’ to the server through a pipe.
+1) When enough clients have connected, any client can enter ‘ready’. Sends ‘ready’ to the respective subserver through a socket.
+2) Subserver sends ‘ready’ to the server through a pipe.
 3) The main server will allocate memory to create an array of struct players depending on how many subservers there are.
 4) The subserver will send the server its struct player and array index through a pipe.
 5) The main server will populate the array of struct players using these values. 
