@@ -11,5 +11,5 @@ server.o: forking_server.c dependencies.h
 	@gcc -c forking_server.c
 connections.o: connections.c dependencies.h
 	@gcc -c connections.c
-clean:	
-	@rm -f *.o client server
+clean:
+	@rm -f *.o client server mapping
