@@ -15,7 +15,7 @@ One machine will host a server that the clients/players will connect to. When th
   
 # Technical Details:
 
-The forking server that creates a subserver (processes) to handle each client. Each client is connected to its respective subserver through a socket. Each subserver shares memory through shared memory segments. Some of the information in those shared memory segments include number of clients done, number of clients ready, the leaderboard system, and number of subservers.
+The forking server that creates a subserver (processes) to handle each client. Each client is connected to its respective subserver through a socket. Each subserver shares memory through shared memory segments. Some of the information in those shared memory segments include number of clients done, number of clients ready, the leaderboard system (allocated memory), and number of subservers.
 
 Upon Connection
 
