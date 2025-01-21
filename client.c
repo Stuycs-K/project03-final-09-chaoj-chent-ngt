@@ -7,10 +7,9 @@ int err() {
 
 int main(int argc, char * argv[]) {
     int sd;
-    printf("%s\n", argv[1]);
     client_connect(&sd, argv[1]);
 
-    // printf("\033[2J\033[1;1H"); // clear screen
+    printf("\033[2J\033[1;1H"); // clear screen
     username_setup(&sd);
 
 
