@@ -1,5 +1,5 @@
 client: compile
-	@./client
+	@./client $(ARGS)
 server: compile
 	@./server
 compile: client.o forking_server.o connections.o
