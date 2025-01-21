@@ -41,13 +41,17 @@ int main(int argc, char * argv[]) {
     struct timespec start, end;
     clock_gettime(CLOCK_REALTIME, &start);
 
+    char lb[400];
     while (current_word = strsep(&remaining_string, " ")) {
+        read(sd, lb, 400);
+        printf("%s\n", lb);
         // Prevents printing (null) when remaining_string is NULL (i.e. last word).
         if (remaining_string == NULL) {
             printf("\033[1;31m%s\033[0m\n", current_word);
         } else {
             printf("\033[1;31m%s\033[0m %s\n", current_word, remaining_string); // red, bolded text (use 4;31m if bold doesn't work)
         }
+        
 
         // Initial prompt for user, without testing.
         printf("Type: \033[4m%s\033[24m\n", current_word);
@@ -74,13 +78,13 @@ int main(int argc, char * argv[]) {
         double time = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
         write(sd, &typed_words, 4);
         write(sd, &time, sizeof(double));
+
     }
-
-
-    printf("You have completed the typeracer!\n");
 
     char finish[100];
     read(sd, finish, 100);
     printf("%s\n", finish);
+    read(sd, lb, 400);
+    printf("%s\n", lb);
     return 0;
 }

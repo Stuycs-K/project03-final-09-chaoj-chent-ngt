@@ -12,17 +12,31 @@ static void sighandler(int signo) {
 }
 
 int main() {
-    int shmid = shmget(intkey, 3 * sizeof(int) + sizeof(struct player *), 0666 | IPC_CREAT);
-    int * shm = (int *)shmat(shmid, NULL, 0);
+    shmid = shmget(intkey, 3 * sizeof(int), 0666 | IPC_CREAT);
+    shm = (int *)shmat(shmid, NULL, 0);
 
     int *num_ready = &shm[0];
     int * num_done = &shm[1];
     int * subservers = &shm[2];
-    struct player ** pls = (struct player **)&shm[3];
     *num_ready = 0;
     *num_done = 0;
     *subservers = 0;
-    *pls = (struct player *)malloc(4 * sizeof(struct player));
+
+    int fd = open("mapping", O_RDWR | O_CREAT | O_TRUNC, 0666);
+    lseek(fd, 4 * sizeof(struct player) - 1, SEEK_SET);
+    write(fd, "", 1);
+    struct player * pls = (struct player *)mmap(0, 4 * sizeof(struct player), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+
+    for (int i = 0; i < 4; i++) {
+      struct player o;
+      memset(&o, 0, sizeof(o));
+      o.words = 0;
+      o.time = 0;
+      o.wpm = 0;
+      pls[i] = o;
+    }
+
+
 
     int sd;
     server_connect(&sd);
@@ -43,9 +57,9 @@ int main() {
             read(client_socket, username, 30);
             printf("Received username: \033[38;5;47m%s\033[0m\n", username);
 
-            strcpy((*pls + ind) -> username, username);
+            strcpy((pls + ind) -> username, username);
 
-            (*pls + ind) -> words = 0;
+            (pls + ind) -> words = 0;
 
             char start[30];
             read(client_socket, start, 30);
@@ -60,20 +74,27 @@ int main() {
 
             int words;
             double user_time;
-            while ((*pls + ind) -> words < length) {
+
+            while ((pls + ind) -> words < length) {  
+                char * lb = sortlb(pls, *subservers);
+                write(client_socket, lb, 400);
                 read(client_socket, &words, 4);
                 read(client_socket, &user_time, sizeof(double));
-                (*pls + ind) -> words = words;
-                (*pls + ind) -> time = user_time;
-                (*pls + ind) -> wpm = calcwpm(words, user_time);
+                (pls + ind) -> words = words;
+                (pls + ind) -> time = user_time;
+                (pls + ind) -> wpm = calcwpm(words, user_time);
             }
 
             char stats[100];
             sprintf(stats, "You finished in %dst/th place! You had a pace of %d wpm!", *num_done + 1, calcwpm(words, user_time));
+            write(client_socket, stats, 100);
+
             (*num_done)++;
 
             while (*num_done < *subservers);
-            write(client_socket, stats, 100);
+            
+            char * lb = sortlb(pls, *subservers);
+            write(client_socket, lb, 400);
         }
     }
 }
