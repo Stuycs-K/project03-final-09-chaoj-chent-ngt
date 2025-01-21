@@ -16,6 +16,8 @@
 #include <sys/shm.h>
 #include <sys/ipc.h>
 #include <sys/time.h>
+#include <sys/mman.h>
+#include <sys/sem.h>
 
 #ifndef DEPENDENCIES_H
 #define DEPENDENCIES_H
@@ -29,7 +31,7 @@ struct player {
     char username[30];
     int words;
     double time;
-    double wpm;
+    int wpm;
 };
 
 void client_connect(int * sd, char * ip);
@@ -46,5 +48,5 @@ void send_string(int * clientSocket);
 
 int len(char * string);
 int calcwpm(int words, int time);
-// char * sortlb(struct player * pls, int ind, int size);
+char * sortlb(struct player * pls, int size);
 #endif

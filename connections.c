@@ -86,28 +86,13 @@ int calcwpm(int words, int time) {
     return 60. / time * words;
 }
 
-// char * sortlb(struct player * pls, int size) {
-//     int order[size];
-//     for (int i = 0; i < size; i++) {
-//         order[i] = i;
-//     }
-//     int i = 1;
-//     while (i < size) {
-//         int j = i;
-//         while (j > 0 & (*pls + order[j-1]) -> wpm < (*pls + order[j]) -> wpm) {
-//             int temp = (*pls + order[j-1]) -> wpm;
-//             (*pls + order[j-1]) -> wpm = (*pls + order[j]) -> wpm;
-//             (*pls + order[j]) -> wpm = temp;
-//             j--;
-//         }
-//         i++;
-//     }
-//     int * out = (char *)malloc(400);
-//     for (int i = 0; i < size; i++) {
-//         char form[100] = "%s wpm: %d time elapsed: %d";
-//         int a = sprintf(form, (*pls + order[i]) -> username, (*pls + order[i]) -> wpm, (*pls + order[i]) -> words);
-//         strcat(out, a);
-//     }
-//     return out;
-// }
+char * sortlb(struct player * pls, int size) {
+    char * out = (char *)malloc(400);
+    for (int i = 0; i < size; i++) {
+        char form[100];
+        int a = sprintf(form, "%s wpm: %d time elapsed: %.2f\n", (pls + i) -> username, (pls + i) -> wpm, (pls + i) -> time);
+        strcat(out, form);
+    }
+    return out;
+}
 
